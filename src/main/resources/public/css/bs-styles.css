@@ -1,0 +1,88 @@
+html {
+  height: 100%;
+}
+body{
+  position: relative;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding-bottom: 6rem;
+}
+body{
+    background-color:#7ddeff;
+}
+.ss-bg{
+  background-image: url(/../images/solar-system.jpg);
+  background-repeat:no-repeat;
+  background-size: cover;
+}
+.has-danger{
+  color:red;
+}
+.table{
+  color:white;
+}
+header {
+    background-color:#1acbfa;
+}
+nav li a{
+    color:white;
+}
+nav a{
+    color:white;
+}
+.navbar-toggler-icon{
+    background-color:white;
+}
+.table-hover tbody tr:hover{
+    color: white;
+    background-color: rgba(0,0,0,.075);
+}
+.btn-custom{
+    background-color:#1acbfa;
+    border-color:#1acbfa;
+    color:white;
+}
+.btn-custom:hover{
+    background-color:white;
+    color:#1acbfa;
+    border-color:#1acbfa;
+}
+footer {
+    background-color:#1acbfa;
+}
+label{
+  color:white;
+}
+tbody {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.table td{
+   text-align:center;
+}
+.dot {
+  height: 15px;
+  width: 15px;
+  /*background-color: #bbb;*/
+  border-radius: 50%;
+  display: inline-block;
+  margin-right:2px;
+}
+.dot-left-color{
+  background-color:#c6f212;
+}
+.dot-right-color{
+  background-color:#2449fc;
+}
+footer{
+  position: absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  padding-left:15px;
+  padding-right:15px;
+}
+

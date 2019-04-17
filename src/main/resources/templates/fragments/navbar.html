@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<nav th:fragment="navbar" class="navbar navbar-expand-lg re-background">
+    <a class="navbar-brand" th:href="@{/}">BioSystem</a> <!--th:text="${navbarText}"-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <th:block sec:authorize="isAnonymous()">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/users/register}">Register</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/users/login}">Login</a>
+                </li>
+            </th:block>
+            <th:block sec:authorize="isAuthenticated()">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/home}">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCells" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Cells
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownCells">
+                        <a class="dropdown-item" th:href="@{/cells/show}">Show</a>
+                        <a class="dropdown-item" th:href="@{/cells/compareCells}">Compare cells</a>
+                        <a class="dropdown-item" th:href="@{/cells/add}"
+                           sec:authorize="hasRole('ROLE_MODERATOR')">Add</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTissues" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Tissues
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownTissues">
+                        <a class="dropdown-item" th:href="@{/tissues/show}">Show</a>
+                        <a class="dropdown-item" th:href="@{/tissues/add}"
+                           sec:authorize="hasRole('ROLE_MODERATOR')">Add</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOrgans" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Organs
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownOrgans">
+                        <a class="dropdown-item" th:href="@{/organs/show}">Show</a>
+                        <!--  <a class="dropdown-item" th:href="@{/organs/compareOrgans}">Compare satellites</a>-->
+                        <a class="dropdown-item" th:href="@{/organs/add}"
+                           sec:authorize="hasRole('ROLE_MODERATOR')">Add</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOrganSystems" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Organ systems
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownOrganSystems">
+                        <a class="dropdown-item" th:href="@{/organSystems/show}">Show</a>
+                        <!-- <a class="dropdown-item" th:href="@{/organSystems/compareOrganSystems}">Compare stars</a>-->
+                        <a class="dropdown-item" th:href="@{/organSystems/add}"
+                           sec:authorize="hasRole('ROLE_MODERATOR')">Add</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOrganisms" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Organisms
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownOrganisms">
+                        <a class="dropdown-item" th:href="@{/organisms/show}">Show</a>
+                        <a class="dropdown-item" th:href="@{/organisms/add}"
+                           sec:authorize="hasRole('ROLE_MODERATOR')">Add</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUsers" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Users
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownUsers">
+                        <a class="dropdown-item" th:href="@{/users/profile}"
+                           sec:authorize="isAuthenticated()">Profile</a>
+                        <a class="dropdown-item" th:href="@{/users/all}" sec:authorize="hasRole('ROLE_ADMIN')">All
+                            Users</a>
+                    </div>
+                </li>
+            </th:block>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="/logout?login" method="post" sec:authorize="isAuthenticated()">
+            <button class="btn btn-custom">Logout</button>
+        </form>
+    </div>
+</nav>
+</html>

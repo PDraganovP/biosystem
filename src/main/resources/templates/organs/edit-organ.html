@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit organ</title>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+</head>
+<body>
+<div>
+    <header>
+        <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+    </header>
+    <main class="mt-4 mb-4">
+        <div class="container">
+            <h1 class="text-center text-white">Edit Organ</h1>
+            <form th:action="@{/organs/edit/{id} (id=${organBindingModel.id})}" method="post"
+                  th:object="${organBindingModel}">
+                <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-danger'">
+                    <label for="inputName" th:text="Name"></label>
+                    <input type="text" th:name="name" class="form-control" id="inputName" th:field="*{name}"/>
+                    <small th:id="nameHelp" th:each="error : ${#fields.errors('name')}" th:text="${error}"></small>
+                </div>
+                <div class="form-check"
+                     th:each="organType : ${T(biosystem.domain.entities.enums.OrganType).values()}">
+                    <input class="form-check-input" type="radio" name="organType" th:id="${{organType}}"
+                           th:value="${organType}" th:field="*{organType}">
+                    <label th:classappend="${#fields.hasErrors('organType')}? 'has-danger'" class="form-check-label"
+                           th:for="${{organType}}" th:text="${{organType.type}}"></label>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('size')}? 'has-danger'">
+                    <label for="size" th:text="|Size|"></label>
+                    <input type="text" th:name="size" class="form-control" id="size"
+                           th:field="*{size}"/>
+                    <small th:id="size"
+                           th:each="error : ${#fields.errors('size')}" th:text="${error}"></small>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('shape')}? 'has-danger'">
+                    <label for="shape" th:text="|Shape|"></label>
+                    <input type="text" th:name="shape" class="form-control" id="shape"
+                           th:field="*{shape}"/>
+                    <small th:id="shape"
+                           th:each="error : ${#fields.errors('shape')}" th:text="${error}"></small>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('studiedBy')}? 'has-danger'">
+                    <label for="studiedBy" th:text="|Studied by|"></label>
+                    <input type="text" th:name="studiedBy" class="form-control" id="studiedBy"
+                           th:field="*{studiedBy}"/>
+                    <small th:id="studiedBy"
+                           th:each="error : ${#fields.errors('studiedBy')}" th:text="${error}"></small>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('organFunction')}? 'has-danger'">
+                    <label for="organFunction" th:text="|Organ function|"></label>
+                    <input type="text" th:name="organFunction" class="form-control" id="organFunction"
+                           th:field="*{organFunction}"/>
+                    <small th:id="organFunction"
+                           th:each="error : ${#fields.errors('organFunction')}" th:text="${error}"></small>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('tissues')}? 'has-danger'">
+                    <label for="inputAffectedTissues" th:text="|Tissues|"></label>
+                    <select multiple class="form-control" th:name="tissues" id="inputAffectedTissues"
+                            th:field="*{tissues}">
+                        <th:block th:each="tissue : ${tissuesModels}">
+                            <option th:value="${tissue.id}" th:text="${tissue.name}"></option>
+                        </th:block>
+                    </select>
+                    <small th:id="tissuesHelp" th:each="error : ${#fields.errors('tissues')}"
+                           th:text="${error}"></small>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <button class="btn btn-custom" th:text="|Edit organ|"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <th:block th:replace="~{fragments/footer :: footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>

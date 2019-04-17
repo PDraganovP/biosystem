@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error page</title>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+</head>
+<body>
+<div>
+    <header>
+        <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+    </header>
+    <div class="row justify-content-center">
+        <div class="text-align-center mt-5 text-white">
+            <h1>Something went wrong!</h1>
+        </div>
+    </div>
+    <footer>
+        <th:block th:replace="~{fragments/footer :: footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>
