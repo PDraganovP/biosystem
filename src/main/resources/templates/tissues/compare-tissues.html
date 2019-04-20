@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Compare tissues</title>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+    <script src="../../public/js/compare-tissues.js" th:src="@{/js/compare-tissues.js}"></script>
+</head>
+<body>
+<div>
+    <header>
+        <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+    </header>
+    <main class="mt-4 mb-4">
+        <h1 class="text-center text-white">Compare tissues by size</h1>
+        <div id="divCanvas" class="text-center">
+            <canvas id="tissueCanvas" width="500" height="400" style="border:3px solid white;"></canvas>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="tissuesOne"><span class="dot dot-left-color"></span>Tissue</label>
+                        <select id="tissuesOne" class="form-control" name="tissuesOne">
+                            <option th:each="tissueOne: ${tissuesOne}" th:object="${tissueOne}"
+                                    th:id="*{id}"
+                                    th:value="*{size}"
+                                    th:text="*{name}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="tissuesTwo"><span class="dot dot-right-color"></span>Tissue</label>
+                        <select id="tissuesTwo" class="form-control" name="tissuesTwo">
+                            <option th:each="tissueTwo: ${tissuesTwo} " th:object="${tissueTwo}"
+                                    th:id="*{id}"
+                                    th:value="*{size}"
+                                    th:text="*{name}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <button id="compare" class="btn btn-custom" th:text="|Compare|"></button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <th:block th:replace="~{fragments/footer :: footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>
