@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>All organ systems</title>
     <th:block th:replace="~{fragments/head :: head}"></th:block>
     <script src="../../public/js/show-organss.js" th:src="@{/js/show-organs.js}"></script>
 </head>
@@ -42,11 +43,11 @@
                     </td>
                     <td class="col-md-1 text-center">
                         <a type="button" class="btn btn-custom btn-sm"
-                           th:href="@{/organSystems/edit/{id}(id=${organSystem.id})}">Edit</a>
+                           th:href="@{/organSystems/edit/{id}(id=${organSystem.id})}" sec:authorize="hasRole('ROLE_MODERATOR')">Edit</a>
                         <!--sec:authorize="hasRole('ROLE_MODERATOR')"-->
                     </td>
                     <td class="col-md-1 text-center">
-                        <form th:action="@{/organSystems/delete/{id}(id=${organSystem.id})}" method="post">
+                        <form th:action="@{/organSystems/delete/{id}(id=${organSystem.id})}" method="post" sec:authorize="hasRole('ROLE_MODERATOR')">
                             <!--sec:authorize="hasRole('ROLE_MODERATOR')"-->
                             <button class="btn btn-custom btn-sm">Delete</button>
                         </form>

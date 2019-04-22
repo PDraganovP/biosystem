@@ -1,5 +1,6 @@
 package biosystem.domain.models.view;
 
+import biosystem.domain.entities.Cell;
 import biosystem.domain.entities.Organ;
 import biosystem.domain.entities.enums.TissueType;
 
@@ -13,6 +14,7 @@ public class TissueViewModel {
     private String name;
     private TissueType tissueType;
     private String description;
+    private Set<Cell> cells;
     private Set<Organ> organs;
 
     public TissueViewModel() {
@@ -74,6 +76,14 @@ public class TissueViewModel {
         this.description = description;
     }
 
+    public Set<Cell> getCells() {
+        return cells;
+    }
+
+    public void setCells(Set<Cell> cells) {
+        this.cells = cells;
+    }
+
     public Set<Organ> getOrgans() {
         return organs;
     }
@@ -81,4 +91,5 @@ public class TissueViewModel {
     public void setOrgans(Set<Organ> organs) {
         this.organs = organs;
     }
+
 }

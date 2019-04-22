@@ -14,8 +14,6 @@ public class ShowOrganViewModel {
     private String name;
     private String organFunction;
     private OrganType organType;
-   /* private Set<Tissue> tissues;
-    private Set<OrganSystem> organSystems;*/
 
     public ShowOrganViewModel() {
     }
@@ -75,20 +73,4 @@ public class ShowOrganViewModel {
     public void setOrganType(OrganType organType) {
         this.organType = organType;
     }
-
-  /*  public Set<Tissue> getTissues() {
-        return tissues;
-    }
-
-    public void setTissues(Set<Tissue> tissues) {
-        this.tissues = tissues;
-    }
-
-    public Set<OrganSystem> getOrganSystems() {
-        return organSystems;
-    }
-
-    public void setOrganSystems(Set<OrganSystem> organSystems) {
-        this.organSystems = organSystems;
-    }*/
 }

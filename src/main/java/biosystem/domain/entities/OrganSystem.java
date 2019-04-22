@@ -5,10 +5,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "organ_systems")
-public class OrganSystem extends BaseEntity {
+public class OrganSystem extends BasicFeature {
     private String name;
     private String organSystemFunction;
- //   private Set<Organ> organs;
+    private String originOfOrganSystem;
+    private Set<Organ> organs;
     private Set<Organism> organisms;
 
     public OrganSystem() {
@@ -32,23 +33,33 @@ public class OrganSystem extends BaseEntity {
         this.organSystemFunction = function;
     }
 
-  //  @ManyToMany
-  //  public Set<Organ> getOrgans() {
-  //      return organs;
-  //  }
-//
-  //  public void setOrgans(Set<Organ> organs) {
-  //      this.organs = organs;
-  //  }
+    @Column(name = "origin_of_the_organ_system")
+    public String getOriginOfOrganSystem() {
+        return originOfOrganSystem;
+    }
+
+    public void setOriginOfOrganSystem(String originOfOrganSystem) {
+        this.originOfOrganSystem = originOfOrganSystem;
+    }
 
     @ManyToMany
-    @JoinTable(name = "organ_systems_organisms",
+    @JoinTable(name = "organ_systems_organs",
             joinColumns = @JoinColumn(
-                    name = "organ_system_id"
-                    , referencedColumnName = "id"),
+                    name = "organ_system_id",
+                    referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "organism_id"
-                    , referencedColumnName = "id"))
+                    name = "organ_id",
+                    referencedColumnName = "id")
+    )
+    public Set<Organ> getOrgans() {
+        return organs;
+    }
+
+    public void setOrgans(Set<Organ> organs) {
+        this.organs = organs;
+    }
+
+    @ManyToMany(mappedBy = "organSystems")
     public Set<Organism> getOrganisms() {
         return organisms;
     }

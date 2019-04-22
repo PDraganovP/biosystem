@@ -7,6 +7,8 @@ import biosystem.domain.models.view.CellViewModel;
 import biosystem.domain.models.view.TissueViewModel;
 import biosystem.services.CellService;
 import biosystem.services.TissueService;
+import biosystem.web.annotations.PageFooter;
+import biosystem.web.annotations.PageNavbar;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,8 +37,8 @@ public class TissueController extends BaseController {
 
     @GetMapping("/show")
     @PreAuthorize("isAuthenticated()")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView show(ModelAndView modelAndView) {
 
         List<TissueServiceModel> tissueServiceModelList = this.tissueService.findAllOrderedByName();
@@ -49,8 +51,8 @@ public class TissueController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    //@PageFooter
-    //@PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView getAddTissuePage(@ModelAttribute("tissueBindingModel") TissueBindingModel tissueBindingModel,
                                          ModelAndView modelAndView) {
 
@@ -66,6 +68,8 @@ public class TissueController extends BaseController {
                                   @Valid @ModelAttribute(name = "tissueBindingModel") TissueBindingModel tissueBindingModel,
                                   BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            List<CellViewModel> cellsOrderedByName = this.findCellsOrderedByName();
+            modelAndView.addObject("cellsModels", cellsOrderedByName);
             return super.view("tissues/add-tissue", modelAndView);
         }
         TissueServiceModel tissueServiceModel = this.modelMapper.map(tissueBindingModel, TissueServiceModel.class);
@@ -81,8 +85,8 @@ public class TissueController extends BaseController {
 
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView getEditTissuePage(@PathVariable("id") String id,
                                           @ModelAttribute("tissueBindingModel") TissueBindingModel tissueBindingModel,
                                           ModelAndView modelAndView) {
@@ -106,6 +110,8 @@ public class TissueController extends BaseController {
                                    ModelAndView modelAndView) {
 
         if (bindingResult.hasErrors()) {
+            List<CellViewModel> cellsOrderedByName = this.findCellsOrderedByName();
+            modelAndView.addObject("cellsModels", cellsOrderedByName);
             return super.view("tissues/edit-tissue", modelAndView);
         }
 
@@ -136,6 +142,28 @@ public class TissueController extends BaseController {
                 .map(cellServiceModel, CellViewModel.class))
                 .collect(Collectors.toList());
         return cellViewModelList;
+
+    }
+
+    @GetMapping("/compareTissues")
+    @PreAuthorize("isAuthenticated()")
+    @PageFooter
+    @PageNavbar
+    public ModelAndView getCompareTissuesPage(ModelAndView modelAndView) {
+        List<TissueViewModel> tissuesOrderedByNameOne = this.findTissuesOrderedByName();
+        modelAndView.addObject("tissuesOne", tissuesOrderedByNameOne);
+        List<TissueViewModel> tissuesOrderedByNameTwo = this.findTissuesOrderedByName();
+        modelAndView.addObject("tissuesTwo", tissuesOrderedByNameTwo);
+
+        return super.view("tissues/compare-tissues", modelAndView);
+    }
+
+    private List<TissueViewModel> findTissuesOrderedByName() {
+        List<TissueServiceModel> tissueServiceModelList = this.tissueService.findAllOrderedByName();
+        List<TissueViewModel> tissueViewModelList = tissueServiceModelList.stream().map(tissueServiceModel -> this.modelMapper
+                .map(tissueServiceModel, TissueViewModel.class))
+                .collect(Collectors.toList());
+        return tissueViewModelList;
 
     }
 

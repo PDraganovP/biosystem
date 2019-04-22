@@ -10,7 +10,7 @@ public interface TissueService {
 
     TissueServiceModel saveTissue(TissueServiceModel tissueServiceModel);
 
-    void editTissue(TissueServiceModel tissueServiceModel);
+    boolean editTissue(TissueServiceModel tissueServiceModel);
 
     TissueServiceModel findById(String id);
 

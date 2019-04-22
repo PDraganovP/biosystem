@@ -7,6 +7,8 @@ import biosystem.domain.models.view.OrganSystemViewModel;
 import biosystem.domain.models.view.OrganViewModel;
 import biosystem.services.OrganService;
 import biosystem.services.OrganSystemService;
+import biosystem.web.annotations.PageFooter;
+import biosystem.web.annotations.PageNavbar;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,8 +37,8 @@ public class OrganSystemController extends BaseController {
 
     @GetMapping("/show")
     @PreAuthorize("isAuthenticated()")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView show(ModelAndView modelAndView) {
 
         List<OrganSystemServiceModel> organSystemServiceModelList = this.organSystemService.findAllOrderedByName();
@@ -49,8 +51,8 @@ public class OrganSystemController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView getAddOrganSystemPage(@ModelAttribute("organSystemBindingModel") OrganSystemBindingModel organSystemBindingModel,
                                               ModelAndView modelAndView) {
 
@@ -66,6 +68,8 @@ public class OrganSystemController extends BaseController {
                                        @Valid @ModelAttribute(name = "organSystemBindingModel") OrganSystemBindingModel organSystemBindingModel,
                                        BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            List<OrganViewModel> organsOrderedByName = this.findOrgansOrderedByName();
+            modelAndView.addObject("organsModels", organsOrderedByName);
             return super.view("organSystems/add-organSystem", modelAndView);
         }
         OrganSystemServiceModel organSystemServiceModel = this.modelMapper.map(organSystemBindingModel, OrganSystemServiceModel.class);
@@ -81,8 +85,8 @@ public class OrganSystemController extends BaseController {
 
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView getEditOrganSystemPage(@PathVariable("id") String id,
                                                @ModelAttribute("organSystemBindingModel") OrganSystemBindingModel organSystemBindingModel,
                                                ModelAndView modelAndView) {
@@ -106,6 +110,8 @@ public class OrganSystemController extends BaseController {
                                         ModelAndView modelAndView) {
 
         if (bindingResult.hasErrors()) {
+            List<OrganViewModel> organsOrderedByName = this.findOrgansOrderedByName();
+            modelAndView.addObject("organsModels", organsOrderedByName);
             return super.view("organSystems/edit-organSystem", modelAndView);
         }
 

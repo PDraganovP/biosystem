@@ -1,14 +1,17 @@
 package biosystem.domain.entities;
 
+import biosystem.domain.entities.enums.OrganType;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "organs")
-public class Organ extends BaseEntity {
+public class Organ extends BasicFeature {
     private String name;
     private String organFunction;
-//   private Set<Tissue> tissues;
+    private OrganType organType;
+    private Set<Tissue> tissues;
     private Set<OrganSystem> organSystems;
 
     public Organ() {
@@ -32,23 +35,34 @@ public class Organ extends BaseEntity {
         this.organFunction = function;
     }
 
-  //  @ManyToMany
-  //  public Set<Tissue> getTissues() {
-  //      return tissues;
-  //  }
-//
-  //  public void setTissues(Set<Tissue> tissues) {
-  //      this.tissues = tissues;
-  //  }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "organ_type")
+    public OrganType getOrganType() {
+        return organType;
+    }
+
+    public void setOrganType(OrganType organType) {
+        this.organType = organType;
+    }
 
     @ManyToMany
-    @JoinTable(name = "organs_organ_systems",
+    @JoinTable(name = "organs_tissues",
             joinColumns = @JoinColumn(
                     name = "organ_id",
                     referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "organ_system_id",
-                    referencedColumnName = "id"))
+                    name = "tissue_id",
+                    referencedColumnName = "id")
+    )
+    public Set<Tissue> getTissues() {
+        return tissues;
+    }
+
+    public void setTissues(Set<Tissue> tissues) {
+        this.tissues = tissues;
+    }
+
+    @ManyToMany(mappedBy = "organs")
     public Set<OrganSystem> getOrganSystems() {
         return organSystems;
     }

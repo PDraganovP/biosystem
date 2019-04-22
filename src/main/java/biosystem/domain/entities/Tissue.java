@@ -4,13 +4,14 @@ import biosystem.domain.entities.enums.TissueType;
 
 import javax.persistence.*;
 import java.util.Set;
+
 @Entity
 @Table(name = "tissue")
-public class Tissue extends BaseEntity {
+public class Tissue extends BasicFeature {
     private String name;
     private TissueType tissueType;
     private String description;
-   // private Set<Cell> cells;
+    private Set<Cell> cells;
     private Set<Organ> organs;
 
     public Tissue() {
@@ -44,24 +45,23 @@ public class Tissue extends BaseEntity {
         this.description = description;
     }
 
- //  @ManyToMany
- //  public Set<Cell> getCells() {
- //      return cells;
- //  }
-
- //  public void setCells(Set<Cell> cells) {
- //      this.cells = cells;
- //  }
-
     @ManyToMany
-    @JoinTable(name = "tissues_organs",
+    @JoinTable(name = "tissues_cells",
             joinColumns = @JoinColumn(
                     name = "tissue_id",
                     referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "organ_id",
-                    referencedColumnName = "id")
-    )
+                    name = "cell_id",
+                    referencedColumnName = "id"))
+    public Set<Cell> getCells() {
+        return cells;
+    }
+
+    public void setCells(Set<Cell> cells) {
+        this.cells = cells;
+    }
+
+    @ManyToMany(mappedBy = "tissues")
     public Set<Organ> getOrgans() {
         return organs;
     }

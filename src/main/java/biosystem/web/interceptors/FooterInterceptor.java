@@ -24,7 +24,7 @@ public class FooterInterceptor extends HandlerInterceptorAdapter {
 
                 if (methodAnnotation != null) {
                     modelAndView
-                            .addObject("footerText", FOOTER_TEXT + " " + methodAnnotation.value());  /*+ " - " + methodAnnotation.value())*/
+                            .addObject("footerText", FOOTER_TEXT + " " + methodAnnotation.value());
                 }
             }
         }

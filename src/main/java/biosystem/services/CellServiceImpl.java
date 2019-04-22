@@ -1,4 +1,4 @@
-package biosystem.serviceImpl;
+package biosystem.services;
 
 import biosystem.domain.entities.Cell;
 import biosystem.domain.models.service.CellServiceModel;
@@ -6,6 +6,7 @@ import biosystem.repository.CellRepository;
 import biosystem.services.CellService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,11 +34,16 @@ public class CellServiceImpl implements CellService {
     }
 
     @Override
-    public void editCell(CellServiceModel cellServiceModel) {
+    public boolean editCell(CellServiceModel cellServiceModel) {
         String id = cellServiceModel.getId();
         Cell cell = this.cellRepository.getOne(id);
-        cell = this.modelMapper.map(cellServiceModel, Cell.class);
-        this.cellRepository.save(cell);
+
+        if (cell != null) {
+            cell = this.modelMapper.map(cellServiceModel, Cell.class);
+            this.cellRepository.save(cell);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -68,4 +74,15 @@ public class CellServiceImpl implements CellService {
         return cellServiceModels;
     }
 
+    @Scheduled(fixedDelay = 1200000)
+    private void setSize() {
+        List<Cell> cells = this.cellRepository.findAll();
+        for (Cell cell : cells) {
+            Double mass = cell.getSize();
+            if (mass == null) {
+                cell.setSize(0d);
+                this.cellRepository.save(cell);
+            }
+        }
+    }
 }

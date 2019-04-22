@@ -3,7 +3,6 @@ package biosystem.services;
 import biosystem.domain.entities.Organ;
 import biosystem.domain.models.service.OrganServiceModel;
 import biosystem.repository.OrganRepository;
-import biosystem.serviceImpl.OrganServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

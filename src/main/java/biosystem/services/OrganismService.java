@@ -10,7 +10,7 @@ public interface OrganismService {
 
     OrganismServiceModel saveOrganism(OrganismServiceModel organismServiceModel);
 
-    void editOrganism(OrganismServiceModel organismServiceModel);
+    boolean editOrganism(OrganismServiceModel organismServiceModel);
 
     OrganismServiceModel findById(String id);
 

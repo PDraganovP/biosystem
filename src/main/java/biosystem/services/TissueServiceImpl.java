@@ -1,4 +1,4 @@
-package biosystem.serviceImpl;
+package biosystem.services;
 
 import biosystem.domain.entities.Tissue;
 import biosystem.domain.models.service.TissueServiceModel;
@@ -33,12 +33,16 @@ public class TissueServiceImpl implements TissueService {
     }
 
     @Override
-    public void editTissue(TissueServiceModel tissueServiceModel) {
+    public boolean editTissue(TissueServiceModel tissueServiceModel) {
         String id = tissueServiceModel.getId();
         Tissue tissue = this.tissueRepository.getOne(id);
-        tissue = modelMapper.map(tissue, Tissue.class);
 
-        this.tissueRepository.save(tissue);
+        if (tissue != null) {
+            tissue = modelMapper.map(tissueServiceModel, Tissue.class);
+            this.tissueRepository.save(tissue);
+            return true;
+        }
+        return false;
     }
 
     @Override

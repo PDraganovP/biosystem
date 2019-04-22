@@ -1,4 +1,4 @@
-package biosystem.serviceImpl;
+package biosystem.services;
 
 import biosystem.domain.entities.User;
 import biosystem.domain.models.service.UserServiceModel;

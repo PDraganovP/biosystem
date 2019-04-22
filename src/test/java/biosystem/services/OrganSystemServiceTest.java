@@ -3,7 +3,6 @@ package biosystem.services;
 import biosystem.domain.entities.OrganSystem;
 import biosystem.domain.models.service.OrganSystemServiceModel;
 import biosystem.repository.OrganSystemRepository;
-import biosystem.serviceImpl.OrganSystemServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -131,7 +130,7 @@ public class OrganSystemServiceTest {
     }
 
     @Test
-    public void findById_WhenHasOrganSystem_returnOrganSystem() { /*findById*/
+    public void findById_WhenHasOrganSystem_returnOrganSystem() {
 
         OrganSystem organSystem = new OrganSystem() {{
             setId("458965");

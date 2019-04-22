@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>All cells</title>
     <th:block th:replace="~{fragments/head :: head}"></th:block>
 </head>
 <body>
@@ -37,10 +38,10 @@
                     <td class="col-md-1 text-center" th:text="*{thereRibosomes} ? 'Yes' :'No'"></td>
                     <td class="col-md-2 text-center">
                         <a type="button" class="btn btn-custom btn-sm"
-                           th:href="@{/cells/edit/{id}(id=${cell.id})}">Edit cell</a>
+                           th:href="@{/cells/edit/{id}(id=${cell.id})}" sec:authorize="hasRole('ROLE_MODERATOR')">Edit cell</a>
                     </td>
                     <td class="col-md-1 text-center">
-                        <form th:action="@{/cells/delete/{id}(id=${cell.id})}" method="post">
+                        <form th:action="@{/cells/delete/{id}(id=${cell.id})}" method="post" sec:authorize="hasRole('ROLE_MODERATOR')">
                             <button class="btn btn-custom btn-sm">Delete</button>
                         </form>
                     </td>

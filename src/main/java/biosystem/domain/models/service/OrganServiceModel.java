@@ -1,6 +1,7 @@
 package biosystem.domain.models.service;
 
 import biosystem.domain.entities.OrganSystem;
+import biosystem.domain.entities.Tissue;
 import biosystem.domain.entities.enums.OrganType;
 
 import java.util.Set;
@@ -13,6 +14,7 @@ public class OrganServiceModel {
     private String name;
     private String organFunction;
     private OrganType organType;
+    private Set<Tissue> tissues;
     private Set<OrganSystem> organSystems;
 
 
@@ -75,6 +77,14 @@ public class OrganServiceModel {
         this.organType = organType;
     }
 
+    public Set<Tissue> getTissues() {
+        return tissues;
+    }
+
+    public void setTissues(Set<Tissue> tissues) {
+        this.tissues = tissues;
+    }
+
     public Set<OrganSystem> getOrganSystems() {
         return organSystems;
     }
@@ -82,4 +92,5 @@ public class OrganServiceModel {
     public void setOrganSystems(Set<OrganSystem> organSystems) {
         this.organSystems = organSystems;
     }
+
 }

@@ -7,6 +7,8 @@ import biosystem.domain.models.view.OrganSystemViewModel;
 import biosystem.domain.models.view.OrganismViewModel;
 import biosystem.services.OrganSystemService;
 import biosystem.services.OrganismService;
+import biosystem.web.annotations.PageFooter;
+import biosystem.web.annotations.PageNavbar;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,8 +37,8 @@ public class OrganismController extends BaseController {
 
     @GetMapping("/show")
     @PreAuthorize("isAuthenticated()")
-    //@PageFooter
-    //@PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView show(ModelAndView modelAndView) {
 
         List<OrganismServiceModel> organismServiceModelList = this.organismService.findAllOrderedByName();
@@ -49,8 +51,8 @@ public class OrganismController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    //@PageFooter
-    //@PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView getAddOrganismPage(@ModelAttribute("organismBindingModel") OrganismBindingModel organismBindingModel,
                                            ModelAndView modelAndView) {
 
@@ -66,6 +68,8 @@ public class OrganismController extends BaseController {
                                     @Valid @ModelAttribute(name = "organismBindingModel") OrganismBindingModel organismBindingModel,
                                     BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            List<OrganSystemViewModel> organSystemsOrderedByName = this.findOrganSystemsOrderedByName();
+            modelAndView.addObject("organSystemsModels", organSystemsOrderedByName);
             return super.view("organisms/add-organism", modelAndView);
         }
         OrganismServiceModel organismServiceModel = this.modelMapper.map(organismBindingModel, OrganismServiceModel.class);
@@ -81,8 +85,8 @@ public class OrganismController extends BaseController {
 
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView getEditOrganismPage(@PathVariable("id") String id,
                                             @ModelAttribute("organismBindingModel") OrganismBindingModel organismBindingModel,
                                             ModelAndView modelAndView) {
@@ -106,6 +110,8 @@ public class OrganismController extends BaseController {
                                      ModelAndView modelAndView) {
 
         if (bindingResult.hasErrors()) {
+            List<OrganSystemViewModel> organSystemsOrderedByName = this.findOrganSystemsOrderedByName();
+            modelAndView.addObject("organSystemsModels", organSystemsOrderedByName);
             return super.view("organisms/edit-organism", modelAndView);
         }
 

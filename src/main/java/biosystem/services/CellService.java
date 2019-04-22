@@ -10,7 +10,7 @@ public interface CellService {
 
     CellServiceModel saveCell(CellServiceModel cellServiceModel);
 
-    void editCell(CellServiceModel cellServiceModel);
+    boolean editCell(CellServiceModel cellServiceModel);
 
     CellServiceModel findById(String id);
 

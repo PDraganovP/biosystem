@@ -10,10 +10,10 @@ body{
   padding-bottom: 6rem;
 }
 body{
-    background-color:#7ddeff;
+    background-color:#14ea01fa;
 }
 .ss-bg{
-  background-image: url(/../images/solar-system.jpg);
+  background-image: url(/../images/biosystem.jpg);
   background-repeat:no-repeat;
   background-size: cover;
 }
@@ -24,7 +24,7 @@ body{
   color:white;
 }
 header {
-    background-color:#1acbfa;
+    background-color:#1ca000;
 }
 nav li a{
     color:white;
@@ -40,17 +40,17 @@ nav a{
     background-color: rgba(0,0,0,.075);
 }
 .btn-custom{
-    background-color:#1acbfa;
-    border-color:#1acbfa;
+    background-color:#1ca000;
+    border-color:#1ca000;
     color:white;
 }
 .btn-custom:hover{
     background-color:white;
-    color:#1acbfa;
-    border-color:#1acbfa;
+    color:#1ca000;
+    border-color:#1ca000;
 }
 footer {
-    background-color:#1acbfa;
+    background-color:#1ca000;
 }
 label{
   color:white;
@@ -66,7 +66,6 @@ tbody {
 .dot {
   height: 15px;
   width: 15px;
-  /*background-color: #bbb;*/
   border-radius: 50%;
   display: inline-block;
   margin-right:2px;

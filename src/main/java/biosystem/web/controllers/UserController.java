@@ -6,15 +6,19 @@ import biosystem.domain.models.service.UserServiceModel;
 import biosystem.domain.models.view.UserAllViewModel;
 import biosystem.domain.models.view.UserProfileViewModel;
 import biosystem.services.UserService;
+import biosystem.web.annotations.PageFooter;
+import biosystem.web.annotations.PageNavbar;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,18 +37,24 @@ public class UserController extends BaseController {
 
     @GetMapping("/register")
     @PreAuthorize("isAnonymous()")
-    //  @PageFooter
-    //  @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView register() {
         return super.view("users/register");
     }
 
     @PostMapping("/register")
     @PreAuthorize("isAnonymous()")
-    public ModelAndView registerConfirm(@ModelAttribute UserRegisterBindingModel model) {
-        if (!model.getPassword().equals(model.getConfirmPassword())) {
-            return super.view("users/register");
+    public ModelAndView registerConfirm(ModelAndView modelAndView, @Valid @ModelAttribute(name = "model") UserRegisterBindingModel model, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return super.view("users/register", modelAndView);
         }
+
+        if (!model.getPassword().equals(model.getConfirmPassword())) {
+            return super.view("users/register", modelAndView);
+        }
+
 
         this.userService.registerUser(this.modelMapper.map(model, UserServiceModel.class));
 
@@ -53,16 +63,16 @@ public class UserController extends BaseController {
 
     @GetMapping("/login")
     @PreAuthorize("isAnonymous()")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView login() {
         return super.view("users/login");
     }
 
     @GetMapping("/profile")
     @PreAuthorize("isAuthenticated()")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView profile(Principal principal, ModelAndView modelAndView) {
         modelAndView
                 .addObject("model", this.modelMapper.map(this.userService.findUserByUserName(principal.getName()), UserProfileViewModel.class));
@@ -72,8 +82,8 @@ public class UserController extends BaseController {
 
     @GetMapping("/edit")
     @PreAuthorize("isAuthenticated()")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView editProfile(Principal principal, ModelAndView modelAndView) {
         modelAndView
                 .addObject("model", this.modelMapper.map(this.userService.findUserByUserName(principal.getName()), UserProfileViewModel.class));
@@ -97,8 +107,8 @@ public class UserController extends BaseController {
 
     @GetMapping("/all")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView allUsers(ModelAndView modelAndView) {
         List<UserAllViewModel> users = this.userService.findAllUsers()
                 .stream()

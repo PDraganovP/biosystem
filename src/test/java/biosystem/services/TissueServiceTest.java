@@ -3,7 +3,6 @@ package biosystem.services;
 import biosystem.domain.entities.Tissue;
 import biosystem.domain.models.service.TissueServiceModel;
 import biosystem.repository.TissueRepository;
-import biosystem.serviceImpl.TissueServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -8,11 +8,11 @@ import java.util.List;
 @Service
 public interface OrganService {
 
-      OrganServiceModel saveOrgan(OrganServiceModel organServiceModel);
+    OrganServiceModel saveOrgan(OrganServiceModel organServiceModel);
 
-    void editOrgan(OrganServiceModel organServiceModel);
+    boolean editOrgan(OrganServiceModel organServiceModel);
 
-   OrganServiceModel findById(String id);
+    OrganServiceModel findById(String id);
 
     boolean deleteOrganById(String id);
 

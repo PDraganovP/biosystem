@@ -4,6 +4,8 @@ import biosystem.domain.models.binding.CellBindingModel;
 import biosystem.domain.models.service.CellServiceModel;
 import biosystem.domain.models.view.CellViewModel;
 import biosystem.services.CellService;
+import biosystem.web.annotations.PageFooter;
+import biosystem.web.annotations.PageNavbar;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,8 +32,8 @@ public class CellController extends BaseController {
 
     @GetMapping("/show")
     @PreAuthorize("isAuthenticated()")
-    //@PageFooter
-    //@PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView show(ModelAndView modelAndView) {
 
         List<CellServiceModel> cellServiceModelList = this.cellService.findAllOrderedByName();
@@ -44,8 +46,8 @@ public class CellController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView getAddCellPage(@ModelAttribute("cellBindingModel") CellBindingModel cellBindingModel,
                                        ModelAndView modelAndView) {
         return super.view("cells/add-cell", modelAndView);
@@ -72,8 +74,8 @@ public class CellController extends BaseController {
 
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView getEditCellPage(@PathVariable("id") String id,
                                         @ModelAttribute("cellBindingModel") CellBindingModel cellBindingModel,
                                         ModelAndView modelAndView) {
@@ -120,8 +122,8 @@ public class CellController extends BaseController {
 
     @GetMapping("/compareCells")
     @PreAuthorize("isAuthenticated()")
-    //  @PageFooter
-    //  @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView getCompareCellsPage(ModelAndView modelAndView) {
         List<CellViewModel> cellsOrderedByNameOne = this.findCellsOrderedByName();
         modelAndView.addObject("cellsOne", cellsOrderedByNameOne);

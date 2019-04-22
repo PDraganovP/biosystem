@@ -1,5 +1,6 @@
 package biosystem.domain.models.service;
 
+import biosystem.domain.entities.Organ;
 import biosystem.domain.entities.Organism;
 
 import java.util.Set;
@@ -12,6 +13,7 @@ public class OrganSystemServiceModel {
     private String name;
     private String organSystemFunction;
     private String originOfOrganSystem;
+    private Set<Organ> organs;
     private Set<Organism> organisms;
 
     public OrganSystemServiceModel() {
@@ -71,6 +73,14 @@ public class OrganSystemServiceModel {
 
     public void setOriginOfOrganSystem(String originOfOrganSystem) {
         this.originOfOrganSystem = originOfOrganSystem;
+    }
+
+    public Set<Organ> getOrgans() {
+        return organs;
+    }
+
+    public void setOrgans(Set<Organ> organs) {
+        this.organs = organs;
     }
 
     public Set<Organism> getOrganisms() {

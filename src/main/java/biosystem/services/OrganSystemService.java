@@ -10,9 +10,9 @@ public interface OrganSystemService {
 
     OrganSystemServiceModel saveOrganSystem(OrganSystemServiceModel organSystemServiceModel);
 
-    void editOrganSystem(OrganSystemServiceModel organSystemServiceModel);
+    boolean editOrganSystem(OrganSystemServiceModel organSystemServiceModel);
 
-   OrganSystemServiceModel findById(String id);
+    OrganSystemServiceModel findById(String id);
 
     boolean deleteOrganSystemById(String id);
 

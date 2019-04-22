@@ -25,7 +25,7 @@ public class NavbarInterceptor extends HandlerInterceptorAdapter {
 
                 if (methodAnnotation != null) {
                     modelAndView
-                            .addObject("navbarText", NAVBAR_TEXT + " " + methodAnnotation.value());  /*+ " - " + methodAnnotation.value())*/
+                            .addObject("navbarText", NAVBAR_TEXT + " " + methodAnnotation.value());
                 }
             }
         }

@@ -7,10 +7,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "cells")
-public class Cell extends BaseEntity {
+public class Cell extends BasicFeature {
     private String name;
     private CellType cellType;
-    private int size;
     private boolean isThereDNA;
     private boolean isThereMitochondria;
     private boolean isThereRibosomes;
@@ -36,15 +35,6 @@ public class Cell extends BaseEntity {
 
     public void setCellType(CellType cellType) {
         this.cellType = cellType;
-    }
-
-    @Column(name = "size")
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     @Column(name = "is_there_dna")
@@ -74,15 +64,8 @@ public class Cell extends BaseEntity {
         isThereRibosomes = thereRibosomes;
     }
 
-    @ManyToMany
-    @JoinTable(name = "cells_tissues",
-            joinColumns = @JoinColumn(
-                    name = "cell_id",
-                    referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "tissue_id",
-                    referencedColumnName = "id"))
-    public Set<Tissue> getTissues() {
+   @ManyToMany(mappedBy ="cells")
+   public Set<Tissue> getTissues() {
         return tissues;
     }
 

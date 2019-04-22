@@ -7,6 +7,8 @@ import biosystem.domain.models.view.OrganViewModel;
 import biosystem.domain.models.view.TissueViewModel;
 import biosystem.services.OrganService;
 import biosystem.services.TissueService;
+import biosystem.web.annotations.PageFooter;
+import biosystem.web.annotations.PageNavbar;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,8 +37,8 @@ public class OrganController extends BaseController {
 
     @GetMapping("/show")
     @PreAuthorize("isAuthenticated()")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView show(ModelAndView modelAndView) {
 
         List<OrganServiceModel> organServiceModelList = this.organService.findAllOrderedByName();
@@ -49,8 +51,8 @@ public class OrganController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView getAddOrganPage(@ModelAttribute("organBindingModel") OrganBindingModel organBindingModel,
                                         ModelAndView modelAndView) {
 
@@ -66,6 +68,8 @@ public class OrganController extends BaseController {
                                  @Valid @ModelAttribute(name = "organBindingModel") OrganBindingModel organBindingModel,
                                  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            List<TissueViewModel> tissuesOrderedByName = this.findTissuesOrderedByName();
+            modelAndView.addObject("tissuesModels", tissuesOrderedByName);
             return super.view("organs/add-organ", modelAndView);
         }
         OrganServiceModel organServiceModel = this.modelMapper.map(organBindingModel, OrganServiceModel.class);
@@ -81,8 +85,8 @@ public class OrganController extends BaseController {
 
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    // @PageFooter
-    // @PageNavbar
+    @PageFooter
+    @PageNavbar
     public ModelAndView getEditOrganPage(@PathVariable("id") String id,
                                          @ModelAttribute("organBindingModel") OrganBindingModel organBindingModel,
                                          ModelAndView modelAndView) {
@@ -106,6 +110,8 @@ public class OrganController extends BaseController {
                                   ModelAndView modelAndView) {
 
         if (bindingResult.hasErrors()) {
+            List<TissueViewModel> tissuesOrderedByName = this.findTissuesOrderedByName();
+            modelAndView.addObject("tissuesModels", tissuesOrderedByName);
             return super.view("organs/edit-organ", modelAndView);
         }
 
@@ -136,6 +142,28 @@ public class OrganController extends BaseController {
                 .map(tissueServiceModel, TissueViewModel.class))
                 .collect(Collectors.toList());
         return tissueViewModelList;
+
+    }
+
+    @GetMapping("/compareOrgans")
+    @PreAuthorize("isAuthenticated()")
+    @PageFooter
+    @PageNavbar
+    public ModelAndView getCompareOrgansPage(ModelAndView modelAndView) {
+        List<OrganViewModel> organsOrderedByNameOne = this.findOrgansOrderedByName();
+        modelAndView.addObject("organsOne", organsOrderedByNameOne);
+        List<OrganViewModel> organsOrderedByNameTwo = this.findOrgansOrderedByName();
+        modelAndView.addObject("organsTwo", organsOrderedByNameTwo);
+
+        return super.view("organs/compare-organs", modelAndView);
+    }
+
+    private List<OrganViewModel> findOrgansOrderedByName() {
+        List<OrganServiceModel> organServiceModelList = this.organService.findAllOrderedByName();
+        List<OrganViewModel> organViewModelList = organServiceModelList.stream().map(organServiceModel -> this.modelMapper
+                .map(organServiceModel, OrganViewModel.class))
+                .collect(Collectors.toList());
+        return organViewModelList;
 
     }
 }

@@ -1,6 +1,9 @@
 package biosystem.domain.models.view;
 
+import biosystem.domain.entities.OrganSystem;
 import biosystem.domain.entities.enums.OrganismType;
+
+import java.util.Set;
 
 public class OrganismViewModel {
     private String id;
@@ -8,6 +11,7 @@ public class OrganismViewModel {
     private String organismHabitat;
     private String basicFood;
     private OrganismType organismType;
+    private Set<OrganSystem> organSystems;
 
     public OrganismViewModel() {
     }
@@ -50,5 +54,13 @@ public class OrganismViewModel {
 
     public void setOrganismType(OrganismType organismType) {
         this.organismType = organismType;
+    }
+
+    public Set<OrganSystem> getOrganSystems() {
+        return organSystems;
+    }
+
+    public void setOrganSystems(Set<OrganSystem> organSystems) {
+        this.organSystems = organSystems;
     }
 }

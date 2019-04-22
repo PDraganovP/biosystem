@@ -3,6 +3,12 @@ package biosystem.domain.models.binding;
 import biosystem.domain.entities.Tissue;
 import biosystem.domain.entities.enums.CellType;
 
+import static biosystem.AnnotationConstants.*;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 public class CellBindingModel {
@@ -28,6 +34,8 @@ public class CellBindingModel {
         this.id = id;
     }
 
+    @Min(value = 0, message = FIELD_CAN_NOT_BE_NEGATIVE)
+    @Max(value = 1000000,message = FIELD_CAN_NOT_BE_GREATER_THAN_MILLION)
     public Double getSize() {
         return size;
     }
@@ -36,6 +44,7 @@ public class CellBindingModel {
         this.size = size;
     }
 
+    @Size(max = 100, message = FIELD_MAX_SYMBOLS_LENGTH)
     public String getShape() {
         return shape;
     }
@@ -44,6 +53,7 @@ public class CellBindingModel {
         this.shape = shape;
     }
 
+    @Size(max = 100, message = FIELD_MAX_SYMBOLS_LENGTH)
     public String getStudiedBy() {
         return studiedBy;
     }
@@ -52,6 +62,7 @@ public class CellBindingModel {
         this.studiedBy = studiedBy;
     }
 
+    @Size(min = 3, max = 50, message = FIELD_NAME_BOUNDARIES)
     public String getName() {
         return name;
     }
@@ -60,6 +71,7 @@ public class CellBindingModel {
         this.name = name;
     }
 
+    @NotNull(message = FIELD_CAN_NOT_BE_NULL)
     public CellType getCellType() {
         return cellType;
     }
@@ -94,9 +106,5 @@ public class CellBindingModel {
 
     public Set<Tissue> getTissues() {
         return tissues;
-    }
-
-    public void setTissues(Set<Tissue> tissues) {
-        this.tissues = tissues;
     }
 }

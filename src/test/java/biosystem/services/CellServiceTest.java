@@ -3,7 +3,6 @@ package biosystem.services;
 import biosystem.domain.entities.Cell;
 import biosystem.domain.models.service.CellServiceModel;
 import biosystem.repository.CellRepository;
-import biosystem.serviceImpl.CellServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

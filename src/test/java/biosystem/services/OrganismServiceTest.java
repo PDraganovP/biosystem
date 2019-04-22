@@ -3,7 +3,6 @@ package biosystem.services;
 import biosystem.domain.entities.Organism;
 import biosystem.domain.models.service.OrganismServiceModel;
 import biosystem.repository.OrganismRepository;
-import biosystem.serviceImpl.OrganismServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,7 +45,7 @@ public class OrganismServiceTest {
         List<Organism> organismsList = List.of(
                 new Organism() {{
                     setId("9578");
-                    setSpeciesName("Fish");  /*EPITHELIUM epithelial.                 */
+                    setSpeciesName("Fish");
                 }},
                 new Organism() {{
                     setId("47895");

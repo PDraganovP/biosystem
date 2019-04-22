@@ -1,4 +1,4 @@
-package biosystem.serviceImpl;
+package biosystem.services;
 
 import biosystem.domain.entities.Organism;
 import biosystem.domain.models.service.OrganismServiceModel;
@@ -33,12 +33,16 @@ public class OrganismServiceImpl implements OrganismService {
     }
 
     @Override
-    public void editOrganism(OrganismServiceModel organismServiceModel) {
+    public boolean editOrganism(OrganismServiceModel organismServiceModel) {
         String id = organismServiceModel.getId();
         Organism organism = this.organismRepository.getOne(id);
-        organism = this.modelMapper.map(organismServiceModel, Organism.class);
 
-        this.organismRepository.save(organism);
+        if (organism != null) {
+            organism = this.modelMapper.map(organismServiceModel, Organism.class);
+            this.organismRepository.save(organism);
+            return true;
+        }
+        return false;
     }
 
     @Override

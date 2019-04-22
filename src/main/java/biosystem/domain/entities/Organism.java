@@ -1,7 +1,6 @@
 package biosystem.domain.entities;
 
 import biosystem.domain.entities.enums.OrganismType;
-import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -9,22 +8,22 @@ import java.util.Set;
 @Entity
 @Table(name = "organisms")
 public class Organism extends BaseEntity {
-    private String specieName;
+    private String speciesName;
     private String organismHabitat;
     private String basicFood;
     private OrganismType organismType;
- //   private Set<OrganSystem> organSystems;
+    private Set<OrganSystem> organSystems;
 
     public Organism() {
     }
 
-    @Column(name = "specie_name", nullable = false)
-    public String getSpecieName() {
-        return specieName;
+    @Column(name = "species_name", nullable = false)
+    public String getSpeciesName() {
+        return speciesName;
     }
 
-    public void setSpecieName(String specieName) {
-        this.specieName = specieName;
+    public void setSpeciesName(String speciesName) {
+        this.speciesName = speciesName;
     }
 
     @Column(name = "organism_habitat")
@@ -55,12 +54,20 @@ public class Organism extends BaseEntity {
         this.organismType = organismType;
     }
 
- //   @ManyToMany
- //   public Set<OrganSystem> getOrganSystems() {
- //       return organSystems;
- //   }
-//
- //   public void setOrganSystems(Set<OrganSystem> organSystems) {
- //       this.organSystems = organSystems;
- //   }
+    @ManyToMany
+    @JoinTable(name = "organisms_organ_systems",
+            joinColumns = @JoinColumn(
+                    name = "organism_id"
+                    , referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "organ_system_id"
+                    , referencedColumnName = "id")
+    )
+    public Set<OrganSystem> getOrganSystems() {
+        return organSystems;
+    }
+
+    public void setOrganSystems(Set<OrganSystem> organSystems) {
+        this.organSystems = organSystems;
+    }
 }
